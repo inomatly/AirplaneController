@@ -61,3 +61,6 @@ microPlane.X.code-workspace
 # Doxygen output
 add/src/artificialBird.X/docs/
 cpputest
+
+# others
+*_local.md

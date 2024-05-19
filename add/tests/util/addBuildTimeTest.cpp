@@ -1,5 +1,5 @@
 #include "CppUTest/TestHarness.h"
-#include "addBuildTime.h"
+#include "../../include/util/addBuildTime.h"
 
 TEST_GROUP(addBuildTime)
 {

@@ -2,3 +2,8 @@
 Language: Cpp
 BasedOnStyle: Google
 IndentWidth: 4
+
+# enum定数を項目毎に改行する
+AllowShortEnumsOnASingleLine: false
+# 短い関数を1行にする
+AllowShortFunctionsOnASingleLine: None
