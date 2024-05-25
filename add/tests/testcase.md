@@ -36,9 +36,18 @@
 - ~~SW5, 6のボタン入力があると，~~
     - ~~5の場合，ヨー目標値が+1~~
     - ~~6の場合，ヨー目標値が-1~~
+- ~~信号整形関数 SetOutPut関数は，内部状態変数SignalState, 入力配列g_SignalRowによって出力を変化させるとします。 SetOutPut関数の出力はint型です。~~
+    - ~~SetOutput関数は，呼び出されるたびに，内部状態変数StateStepperを1カウントアップする。~~
+    - ~~SetOutput関数は，内部状態変数StateStepper=1の時，1(True)を返す。~~
+    - ~~SetOutput関数は，内部状態変数StateStepper=2の時，0(false)を返す。~~
+    - ~~g_SignalRowのそれぞれの値の最小値は-8，最大値は8 。~~
+    - ~~SetOutput関数は，g_SignalRow[0]を元にした信号整形をし，次にg_SignalRow[1]の信号整形をし，最後にg_SignalRow[2]の信号整形をする。~~
+    - ~~g_SignalRow[*]の値が-8の時，内部状態変数StateStepper=3の時，1を返す。~~
+    - ~~g_SignalRow[*]の値が8の時，内部状態変数StateStepper=3~18の間0を返し，StateStepper=9の時1を返す。~~
+    - ~~g_SignalRow[*]の値が8の時，内部状態変数StateStepper=3~10の間0を返し，StateStepper=11の時1を返す。~~
+    - ~~信号整形関数はクリア関数を持つ~~
 - 速度目標，ピッチ目標，ヨー目標を元に，送信信号のOFF時間の長さを計算する。
-- 送信信号に対応した配列に，信号列を格納する。
-- 送信信号に対応した配列（信号列）をクリアする
+    - 送信信号に対応した配列に，信号列を格納する。
 
 #### 未完了
 
