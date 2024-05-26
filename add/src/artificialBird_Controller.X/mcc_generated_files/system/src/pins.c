@@ -168,7 +168,7 @@ void PIN_MANAGER_IOC(void) {
 */
 void SW1_ISR(void) {
     // Add custom IOCAF0 code
-    DriveLed(IoTOGGLE);
+    //    DriveLed(IoTOGGLE);
     UpdateSpeedUP();
     // Call the interrupt handler for the callback registered at runtime
     if (SW1_InterruptHandler) {

@@ -5,6 +5,9 @@ extern "C" {
 #include "src/artificialBird_Controller.X/headers/SetSignal.h"
 }
 
+//*****************************
+// テストグループ
+//*****************************
 TEST_GROUP(SetSignalUT){
     void setup(){
         SignalClear();
@@ -16,6 +19,10 @@ TEST_GROUP(SetSignalUT){
         ;
     }
 };//TEST_GROUPには「;」が必要。構造体で実装しているらしい。
+
+//*****************************
+// テスト
+//*****************************
 
 /**
  * @brief TransrateRefThresholdの動作確認（最小値）
@@ -276,3 +283,5 @@ TEST(SetSignalUT, SignalRowExample) {
     CHECK_EQUAL(1, output[10]); //ch1の先頭のON
     CHECK_EQUAL(0, output[11]); //ch1
 }
+
+

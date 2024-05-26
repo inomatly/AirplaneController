@@ -34,7 +34,10 @@
 
 #include <stdio.h>
 
+#include "headers/Common.h"
 #include "headers/DriveLed.h"
+#include "headers/SetSignal.h"
+#include "headers/SwitchInput.h"
 #include "mcc_generated_files/system/system.h"
 
 /*
@@ -61,11 +64,12 @@ int main(void) {
     // Disable the Peripheral Interrupts
     // INTERRUPT_PeripheralInterruptDisable();
 
+    // Inialization of SetSignal Function
+    SignalClear();
+
     while (1) {
-        // printf("%d\n",g_intA);
-        // printf("hello\n");
-        // func(1);
         // debug_wait(10000);
+        ;
     }
 }
 

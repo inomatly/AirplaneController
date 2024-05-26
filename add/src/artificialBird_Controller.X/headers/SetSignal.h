@@ -21,7 +21,7 @@ int TransrateRefThreshold(int);
 #endif
 
 extern int g_SignalRow[SignalRowLength];
-
+void CallLedDriveAccordingToSignal(void);
 void SignalClear(void);
 int SetOutput(void);
 STATIC void UpdateSignalRow(void);

@@ -10,6 +10,7 @@
 #include <stdlib.h>
 
 #include "headers/Common.h"
+#include "headers/DriveLed.h"
 
 #ifndef CPPUTEST
 #include "mcc_generated_files/system/system.h"
@@ -144,4 +145,21 @@ STATIC void UpdateSignalRow(void) {
     g_SignalRow[1] = g_PitchRefCount;
     g_SignalRow[2] = g_YawRefCount;
     g_SignalRow[3] = 0;
+}
+
+/**
+ * @brief SetOutput関数に応じてDriveLedを制御する
+ */
+void CallLedDriveAccordingToSignal(void) {
+    int result = SetOutput();
+    switch (result) {
+        case 1:
+            DriveLed(IoON);  // 後日，異常系設計を行う。
+            break;
+        case 0:
+            DriveLed(IoOFF);  // 後日，異常系設計を行う。
+            break;
+        default:
+            break;
+    }
 }
