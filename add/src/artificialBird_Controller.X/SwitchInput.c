@@ -22,7 +22,9 @@ int g_YawRefCount = 0;
  */
 void UpdatePitchUP(void) {
     g_PitchRefCount++;
-    // 後日，カウンターの上限を設定する
+    if (g_PitchRefCount > 8) {
+        g_PitchRefCount = 8;
+    }
 }
 
 /**
@@ -30,7 +32,9 @@ void UpdatePitchUP(void) {
  */
 void UpdatePitchDown(void) {
     g_PitchRefCount--;
-    // 後日，カウンターの下限を設定する
+    if (g_PitchRefCount < -8) {
+        g_PitchRefCount = -8;
+    }
 }
 
 /**
@@ -38,7 +42,9 @@ void UpdatePitchDown(void) {
  */
 void UpdateYawUP(void) {
     g_YawRefCount++;
-    // 後日，カウンターの上限を設定する
+    if (g_YawRefCount > 8) {
+        g_YawRefCount = 8;
+    }
 }
 
 /**
@@ -46,7 +52,9 @@ void UpdateYawUP(void) {
  */
 void UpdateYawDown(void) {
     g_YawRefCount--;
-    // 後日，カウンターの下限を設定する
+    if (g_YawRefCount < -8) {
+        g_YawRefCount = -8;
+    }
 }
 
 /**
@@ -54,7 +62,9 @@ void UpdateYawDown(void) {
  */
 void UpdateSpeedUP(void) {
     g_SpeedRefCount++;
-    // 後日，カウンターの上限を設定する
+    if (g_SpeedRefCount > 8) {
+        g_SpeedRefCount = 8;
+    }
 }
 
 /**
@@ -62,5 +72,7 @@ void UpdateSpeedUP(void) {
  */
 void UpdateSpeedDown(void) {
     g_SpeedRefCount--;
-    // 後日，カウンターの下限を設定する
+    if (g_SpeedRefCount < -8) {
+        g_SpeedRefCount = -8;
+    }
 }

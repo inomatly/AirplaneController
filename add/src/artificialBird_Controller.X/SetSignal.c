@@ -117,3 +117,31 @@ STATIC int TransrateRefThreshold(int SignalRowVal) {
     // 入力値に基づいて出力値を計算
     return SignalRowVal + 9;
 }
+
+/**
+ * @brief g_SignalRow[]を更新する関数
+ */
+STATIC void UpdateSignalRow(void) {
+    if (g_PitchRefCount > 8) {
+        g_PitchRefCount = 8;
+    }
+    if (g_PitchRefCount < -8) {
+        g_PitchRefCount = -8;
+    }
+    if (g_YawRefCount > 8) {
+        g_YawRefCount = 8;
+    }
+    if (g_YawRefCount < -8) {
+        g_YawRefCount = -8;
+    }
+    if (g_SpeedRefCount > 8) {
+        g_SpeedRefCount = 8;
+    }
+    if (g_SpeedRefCount < -8) {
+        g_SpeedRefCount = -8;
+    }
+    g_SignalRow[0] = g_SpeedRefCount;
+    g_SignalRow[1] = g_PitchRefCount;
+    g_SignalRow[2] = g_YawRefCount;
+    g_SignalRow[3] = 0;
+}

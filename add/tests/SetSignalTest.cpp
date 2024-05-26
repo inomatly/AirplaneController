@@ -48,6 +48,50 @@ TEST(SetSignalUT, TransrateRefThreshold_max) {
 }
 
 /**
+ * @brief g_SignalRow[]の更新
+ * @param g_SpeedRefCount グローバル変数を参照する
+ * @param g_PitchRefCount グローバル変数を参照する
+ * @param g_YawRefCount グローバル変数を参照する
+ */
+TEST(SetSignalUT, UpdateSignalRow) {
+    // Arrange
+    g_SpeedRefCount=0;
+    g_PitchRefCount=1;
+    g_YawRefCount=2;
+
+    // Act
+    UpdateSignalRow();
+    
+    // Assert
+    CHECK_EQUAL(0, g_SignalRow[0]);
+    CHECK_EQUAL(1, g_SignalRow[1]);
+    CHECK_EQUAL(2, g_SignalRow[2]);
+    CHECK_EQUAL(0, g_SignalRow[3]);
+}
+
+/**
+ * @brief g_SignalRow[]の上限・下限の確認
+ * @param g_SpeedRefCount グローバル変数を参照する
+ * @param g_PitchRefCount グローバル変数を参照する
+ * @param g_YawRefCount グローバル変数を参照する
+ */
+TEST(SetSignalUT, SignalRowLimit) {
+    // Arrange
+    g_SpeedRefCount=9;
+    g_PitchRefCount=-9;
+    g_YawRefCount=99;
+
+    // Act
+    UpdateSignalRow();
+    
+    // Assert
+    CHECK_EQUAL(8, g_SignalRow[0]);
+    CHECK_EQUAL(-8, g_SignalRow[1]);
+    CHECK_EQUAL(8, g_SignalRow[2]);
+    CHECK_EQUAL(0, g_SignalRow[3]);
+}
+
+/**
  * @brief 初期化のテスト
  */
 TEST(SetSignalUT, SignalClear){
@@ -165,9 +209,10 @@ TEST(SetSignalUT, SignalRowZero) {
     // Assert
     CHECK_EQUAL(1, output[0]); 
     CHECK_EQUAL(0, output[1]);
-    for(int i=2; i<count-1; i++){
+    for(int i=2; i<9; i++){
         CHECK_EQUAL(0, output[i]); 
     }
+    CHECK_EQUAL(1, output[10]); 
     CHECK_EQUAL(1, CurrentSignalIndex); //ch2に移行
 }
 
