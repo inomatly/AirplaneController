@@ -20,6 +20,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 "150 ./mcc_generated_files/system/../timer/tmr1.h
 [; ;./mcc_generated_files/system/../timer/tmr1.h: 150: void TMR1_Start(void);
 [v _TMR1_Start `(v ~T0 @X0 0 ef ]
+"11 ./headers/SwitchInput.h
+[; ;./headers/SwitchInput.h: 11: extern int g_SpeedRefCount;
+[v _g_SpeedRefCount `i ~T0 @X0 0 e ]
+"12
+[; ;./headers/SwitchInput.h: 12: extern int g_PitchRefCount;
+[v _g_PitchRefCount `i ~T0 @X0 0 e ]
+"13
+[; ;./headers/SwitchInput.h: 13: extern int g_YawRefCount;
+[v _g_YawRefCount `i ~T0 @X0 0 e ]
+"27 ./headers/SetSignal.h
+[; ;./headers/SetSignal.h: 27: void UpdateSignalRow(void);
+[v _UpdateSignalRow `(v ~T0 @X0 0 ef ]
 "1 ./headers/main.h
 [; ;./headers/main.h: 1: void debug_wait(long);
 [v _debug_wait `(v ~T0 @X0 0 ef1`l ]
@@ -1596,47 +1608,59 @@ Version 4.0 HI-TECH Software Intermediate Code
 "71
 [; ;main.c: 71:     TMR1_Start();
 [e ( _TMR1_Start ..  ]
+"72
+[; ;main.c: 72:     g_SpeedRefCount = -8;
+[e = _g_SpeedRefCount -U -> 8 `i ]
 "73
-[; ;main.c: 73:     while (1) {
+[; ;main.c: 73:     g_PitchRefCount = -6;
+[e = _g_PitchRefCount -U -> 6 `i ]
+"74
+[; ;main.c: 74:     g_YawRefCount = -4;
+[e = _g_YawRefCount -U -> 4 `i ]
+"75
+[; ;main.c: 75:     UpdateSignalRow();
+[e ( _UpdateSignalRow ..  ]
+"76
+[; ;main.c: 76:     while (1) {
 [e :U 1561 ]
 {
-"74
-[; ;main.c: 74:         debug_wait(100000);
+"77
+[; ;main.c: 77:         debug_wait(100000);
 [e ( _debug_wait (1 -> 100000 `l ]
-"76
-[; ;main.c: 76:     }
+"79
+[; ;main.c: 79:     }
 }
 [e :U 1560 ]
 [e $U 1561  ]
 [e :U 1562 ]
-"77
-[; ;main.c: 77: }
+"80
+[; ;main.c: 80: }
 [e :UE 1559 ]
 }
-"79
-[; ;main.c: 79: void debug_wait(long max) {
+"82
+[; ;main.c: 82: void debug_wait(long max) {
 [v _debug_wait `(v ~T0 @X0 1 ef1`l ]
 {
 [e :U _debug_wait ]
 [v _max `l ~T0 @X0 1 r1 ]
 [f ]
-"80
-[; ;main.c: 80:     for (long i = 0; i < max; i++) {
+"83
+[; ;main.c: 83:     for (long i = 0; i < max; i++) {
 {
 [v _i `l ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `l ]
 [e $U 1567  ]
 [e :U 1564 ]
 {
-"82
-[; ;main.c: 82:     }
+"85
+[; ;main.c: 85:     }
 }
 [e ++ _i -> -> 1 `i `l ]
 [e :U 1567 ]
 [e $ < _i _max 1564  ]
 [e :U 1565 ]
 }
-"83
-[; ;main.c: 83: }
+"86
+[; ;main.c: 86: }
 [e :UE 1563 ]
 }

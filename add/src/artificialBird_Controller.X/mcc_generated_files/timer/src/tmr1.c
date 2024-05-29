@@ -39,6 +39,8 @@
 #include <xc.h>
 
 #include "../../../headers/DriveLed.h"
+#include "../../../headers/SetSignal.h"
+#include "../../../headers/SwitchInput.h"
 
 /**
  * Section: Global Variables Definitions
@@ -165,7 +167,7 @@ void TMR1_OverflowCallbackRegister(void (*CallbackHandler)(void)) {
 static void TMR1_DefaultOverflowCallback(void) {
     // Add your interrupt code here or
     // Use TMR1_OverflowCallbackRegister function to use Custom ISR
-    DriveLed(IoTOGGLE);
+    CallLedDriveAccordingToSignal();
 }
 
 bool TMR1_HasOverflowOccured(void) {

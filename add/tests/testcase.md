@@ -53,13 +53,11 @@
 - モータ制御信号は，3種類のモータに対応する信号を重畳した信号を送信する。
 - モータ制御信号は，1つめのON→OFFの後の時間の長さがch1の信号，2つめのON→OFFの後の時間の長さがch2の信号，3つめのON→OFFの後の時間の長さがch3の信号とする。4つ目のON→OFFは，ch3の信号の終了を識別するために使用する。それぞれ，ONの時間はタイマ割り込み時間の2倍とする。
 
-filter_pressure_left = (uint16_t)(MIN_PRESSURE_PA + (rawPressure - MIN_PRESSURE_RAW) * (MAX_PRESSURE_PA - MIN_PRESSURE_PA) / (MAX_PRESSURE_RAW - MIN_PRESSURE_RAW));
-filter_pressure_left = (uint16_t)(MIN_PRESSURE_PA + (rawPressure - MIN_PRESSURE_RAW)*(MAX_PRESSURE_PA-MIN_PRESSURE_PA)/(MAX_PRESSURE_RAW-MIN_PRESSURE_RAW));
 
 
 - 結合
     - LEDで可視光で，タイマ割り込み1Sとかで実装してみる。
-
+- ch1~終端信号まで終わったら，UpdateSignalRowで配列を更新する。たしか未実装のはず。
 ### 受信機のみ
 
 

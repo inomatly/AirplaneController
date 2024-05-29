@@ -20187,7 +20187,10 @@ int main(void) {
     SignalClear();
 
     TMR1_Start();
-
+    g_SpeedRefCount = -8;
+    g_PitchRefCount = -6;
+    g_YawRefCount = -4;
+    UpdateSignalRow();
     while (1) {
         debug_wait(100000);
 

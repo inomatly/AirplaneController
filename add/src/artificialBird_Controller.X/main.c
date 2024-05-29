@@ -69,7 +69,10 @@ int main(void) {
     SignalClear();
     // DriveLed(IoON);
     Timer1_Start();
-
+    g_SpeedRefCount = -8;
+    g_PitchRefCount = -6;
+    g_YawRefCount = -4;
+    UpdateSignalRow();
     while (1) {
         debug_wait(100000);
         // DriveLed(IoTOGGLE);
