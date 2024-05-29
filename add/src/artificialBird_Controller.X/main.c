@@ -43,6 +43,7 @@
 /*
     Main application
 */
+// void TMR1_interrupt(void);  // タイマ割り込みで呼び出される関数
 
 int main(void) {
     // g_intA=0;
@@ -66,10 +67,12 @@ int main(void) {
 
     // Inialization of SetSignal Function
     SignalClear();
+    // DriveLed(IoON);
+    Timer1_Start();
 
     while (1) {
-        // debug_wait(10000);
-        ;
+        debug_wait(100000);
+        // DriveLed(IoTOGGLE);
     }
 }
 

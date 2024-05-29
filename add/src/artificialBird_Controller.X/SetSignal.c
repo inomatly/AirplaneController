@@ -110,19 +110,19 @@ int SetOutput(void) {
  * @param input 入力値（-8から8の範囲）
  * @return 指定された出力値（1から17の範囲）
  */
-STATIC int TransrateRefThreshold(int SignalRowVal) {
+int TransrateRefThreshold(int InputSignalRowVal) {
     // 入力値の範囲チェック
-    if (SignalRowVal < -8 || SignalRowVal > 8) {
+    if (InputSignalRowVal < -8 || InputSignalRowVal > 8) {
         return -1;  // エラー値を返す
     }
     // 入力値に基づいて出力値を計算
-    return SignalRowVal + 9;
+    return InputSignalRowVal + 9;
 }
 
 /**
  * @brief g_SignalRow[]を更新する関数
  */
-STATIC void UpdateSignalRow(void) {
+void UpdateSignalRow(void) {
     if (g_PitchRefCount > 8) {
         g_PitchRefCount = 8;
     }
