@@ -58,9 +58,14 @@ microPlane.mc3
 .vscode/
 microPlane.X.code-workspace
 
+# MPLAB objects
+*.i
+*.p1
+
 # Doxygen output
 add/src/artificialBird.X/docs/
 cpputest
 
 # others
 *_local.md
+
