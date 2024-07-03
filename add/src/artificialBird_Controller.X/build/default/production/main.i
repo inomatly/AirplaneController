@@ -7,10 +7,10 @@
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.30\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
 # 1 "main.c" 2
-# 33 "main.c"
+# 34 "main.c"
 # 1 "./headers/main.h" 1
 void debug_wait(long);
-# 33 "main.c" 2
+# 34 "main.c" 2
 
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.30\\pic\\include\\c90\\stdio.h" 1 3
@@ -110,11 +110,11 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 #pragma printf_check(sprintf) const
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
-# 35 "main.c" 2
+# 36 "main.c" 2
 
 
 # 1 "./headers/Common.h" 1
-# 37 "main.c" 2
+# 38 "main.c" 2
 
 # 1 "./headers/DriveLed.h" 1
 # 10 "./headers/DriveLed.h"
@@ -128,7 +128,7 @@ enum IoControl {
     IoOFF,
     IoTOGGLE
 };
-# 38 "main.c" 2
+# 39 "main.c" 2
 
 # 1 "./headers/SetSignal.h" 1
 # 12 "./headers/SetSignal.h"
@@ -152,7 +152,7 @@ void CallLedDriveAccordingToSignal(void);
 void SignalClear(void);
 int SetOutput(void);
 void UpdateSignalRow(void);
-# 39 "main.c" 2
+# 40 "main.c" 2
 
 
 # 1 "./mcc_generated_files/system/system.h" 1
@@ -20155,7 +20155,7 @@ void INT_DefaultInterruptHandler(void);
 # 46 "./mcc_generated_files/system/system.h" 2
 # 55 "./mcc_generated_files/system/system.h"
 void SYSTEM_Initialize(void);
-# 41 "main.c" 2
+# 42 "main.c" 2
 
 
 

@@ -34,19 +34,24 @@
 */
 
 #include "../pins.h"
-
 #include "../../../headers/DriveLed.h"
 #include "../../../headers/SwitchInput.h"
 
-void (*SW1_InterruptHandler)(void);
-void (*SW2_InterruptHandler)(void);
-void (*SW3_InterruptHandler)(void);
-void (*SW4_InterruptHandler)(void);
-void (*SW5_InterruptHandler)(void);
-void (*SW6_InterruptHandler)(void);
-void (*SW7_InterruptHandler)(void);
+void (*DC_P1_InterruptHandler)(void);
+void (*DC_P2_InterruptHandler)(void);
+void (*DC_N1_InterruptHandler)(void);
+void (*DC_N2_InterruptHandler)(void);
+void (*SvA_P1_InterruptHandler)(void);
+void (*SvA_P2_InterruptHandler)(void);
+void (*SvA_N1_InterruptHandler)(void);
+void (*SvA_N2_InterruptHandler)(void);
+void (*SvB_N2_InterruptHandler)(void);
+void (*SvB_N1_InterruptHandler)(void);
+void (*SvB_P2_InterruptHandler)(void);
+void (*SvB_P1_InterruptHandler)(void);
 
-void PIN_MANAGER_Initialize(void) {
+void PIN_MANAGER_Initialize(void)
+{
     /**
      LATx registers
      */
@@ -57,23 +62,23 @@ void PIN_MANAGER_Initialize(void) {
     /**
     TRISx registers
     */
-    TRISA = 0xFF;
-    TRISB = 0x0;
-    TRISC = 0xFC;
+    TRISA = 0xFE;
+    TRISB = 0x1;
+    TRISC = 0xFF;
 
     /**
     ANSELx registers
     */
-    ANSELA = 0x40;
-    ANSELB = 0x0;
-    ANSELC = 0xFC;
+    ANSELA = 0xE0;
+    ANSELB = 0x1;
+    ANSELC = 0x0;
 
     /**
     WPUx registers
     */
-    WPUA = 0xBF;
+    WPUA = 0x1E;
     WPUB = 0x0;
-    WPUC = 0x0;
+    WPUC = 0xFF;
     WPUE = 0x0;
 
     /**
@@ -108,100 +113,111 @@ void PIN_MANAGER_Initialize(void) {
     /**
      IOCx registers
      */
-    IOCAP = 0xBF;
+    IOCAP = 0x1E;
     IOCAN = 0x0;
     IOCAF = 0x0;
     IOCBP = 0x0;
     IOCBN = 0x0;
     IOCBF = 0x0;
-    IOCCP = 0x0;
+    IOCCP = 0xFF;
     IOCCN = 0x0;
     IOCCF = 0x0;
     IOCEP = 0x0;
     IOCEN = 0x0;
     IOCEF = 0x0;
 
-    SW1_SetInterruptHandler(SW1_DefaultInterruptHandler);
-    SW2_SetInterruptHandler(SW2_DefaultInterruptHandler);
-    SW3_SetInterruptHandler(SW3_DefaultInterruptHandler);
-    SW4_SetInterruptHandler(SW4_DefaultInterruptHandler);
-    SW5_SetInterruptHandler(SW5_DefaultInterruptHandler);
-    SW6_SetInterruptHandler(SW6_DefaultInterruptHandler);
-    SW7_SetInterruptHandler(SW7_DefaultInterruptHandler);
+    DC_P1_SetInterruptHandler(DC_P1_DefaultInterruptHandler);
+    DC_P2_SetInterruptHandler(DC_P2_DefaultInterruptHandler);
+    DC_N1_SetInterruptHandler(DC_N1_DefaultInterruptHandler);
+    DC_N2_SetInterruptHandler(DC_N2_DefaultInterruptHandler);
+    SvA_P1_SetInterruptHandler(SvA_P1_DefaultInterruptHandler);
+    SvA_P2_SetInterruptHandler(SvA_P2_DefaultInterruptHandler);
+    SvA_N1_SetInterruptHandler(SvA_N1_DefaultInterruptHandler);
+    SvA_N2_SetInterruptHandler(SvA_N2_DefaultInterruptHandler);
+    SvB_N2_SetInterruptHandler(SvB_N2_DefaultInterruptHandler);
+    SvB_N1_SetInterruptHandler(SvB_N1_DefaultInterruptHandler);
+    SvB_P2_SetInterruptHandler(SvB_P2_DefaultInterruptHandler);
+    SvB_P1_SetInterruptHandler(SvB_P1_DefaultInterruptHandler);
 
     // Enable PIE0bits.IOCIE interrupt
     PIE0bits.IOCIE = 1;
 }
 
-void PIN_MANAGER_IOC(void) {
-    // interrupt on change for pin SW1}
-    if (IOCAFbits.IOCAF0 == 1) {
-        SW1_ISR();
+void PIN_MANAGER_IOC(void)
+{
+    // interrupt on change for pin DC_P1}
+    if(IOCAFbits.IOCAF1 == 1)
+    {
+        DC_P1_ISR();  
     }
-    // interrupt on change for pin SW2}
-    if (IOCAFbits.IOCAF1 == 1) {
-        SW2_ISR();
+    // interrupt on change for pin DC_P2}
+    if(IOCAFbits.IOCAF2 == 1)
+    {
+        DC_P2_ISR();  
     }
-    // interrupt on change for pin SW3}
-    if (IOCAFbits.IOCAF2 == 1) {
-        SW3_ISR();
+    // interrupt on change for pin DC_N1}
+    if(IOCAFbits.IOCAF3 == 1)
+    {
+        DC_N1_ISR();  
     }
-    // interrupt on change for pin SW4}
-    if (IOCAFbits.IOCAF3 == 1) {
-        SW4_ISR();
+    // interrupt on change for pin DC_N2}
+    if(IOCAFbits.IOCAF4 == 1)
+    {
+        DC_N2_ISR();  
     }
-    // interrupt on change for pin SW5}
-    if (IOCAFbits.IOCAF4 == 1) {
-        SW5_ISR();
+    // interrupt on change for pin SvA_P1}
+    if(IOCCFbits.IOCCF0 == 1)
+    {
+        SvA_P1_ISR();  
     }
-    // interrupt on change for pin SW6}
-    if (IOCAFbits.IOCAF5 == 1) {
-        SW6_ISR();
+    // interrupt on change for pin SvA_P2}
+    if(IOCCFbits.IOCCF1 == 1)
+    {
+        SvA_P2_ISR();  
     }
-    // interrupt on change for pin SW7}
-    if (IOCAFbits.IOCAF7 == 1) {
-        SW7_ISR();
+    // interrupt on change for pin SvA_N1}
+    if(IOCCFbits.IOCCF2 == 1)
+    {
+        SvA_N1_ISR();  
     }
+    // interrupt on change for pin SvA_N2}
+    if(IOCCFbits.IOCCF3 == 1)
+    {
+        SvA_N2_ISR();  
 }
+    // interrupt on change for pin SvB_N2}
+    if(IOCCFbits.IOCCF4 == 1)
+    {
+        SvB_N2_ISR();  
+    }
+    // interrupt on change for pin SvB_N1}
+    if(IOCCFbits.IOCCF5 == 1)
+    {
+        SvB_N1_ISR();  
+    }
+    // interrupt on change for pin SvB_P2}
+    if(IOCCFbits.IOCCF6 == 1)
+    {
+        SvB_P2_ISR();  
+}
+    // interrupt on change for pin SvB_P1}
+    if(IOCCFbits.IOCCF7 == 1)
+    {
+        SvB_P1_ISR();  
+}
+    }
 
 /**
-   SW1 Interrupt Service Routine
+   DC_P1 Interrupt Service Routine
 */
-void SW1_ISR(void) {
-    // Add custom IOCAF0 code
-    //    DriveLed(IoTOGGLE);
-    UpdateSpeedUP();
-    // Call the interrupt handler for the callback registered at runtime
-    if (SW1_InterruptHandler) {
-        SW1_InterruptHandler();
-    }
-    IOCAFbits.IOCAF0 = 0;
-}
+void DC_P1_ISR(void) {
 
-/**
-  Allows selecting an interrupt handler for IOCAF0 at application runtime
-*/
-void SW1_SetInterruptHandler(void (*InterruptHandler)(void)) {
-    SW1_InterruptHandler = InterruptHandler;
-}
-
-/**
-  Default interrupt handler for IOCAF0
-*/
-void SW1_DefaultInterruptHandler(void) {
-    // add your SW1 interrupt custom code
-    // or set custom function using SW1_SetInterruptHandler()
-}
-
-/**
-   SW2 Interrupt Service Routine
-*/
-void SW2_ISR(void) {
     // Add custom IOCAF1 code
-    UpdateSpeedDown();
+
     // Call the interrupt handler for the callback registered at runtime
-    if (SW2_InterruptHandler) {
-        SW2_InterruptHandler();
+    if(DC_P1_InterruptHandler)
+    {
+        DC_P1_InterruptHandler();
     }
     IOCAFbits.IOCAF1 = 0;
 }
@@ -209,27 +225,29 @@ void SW2_ISR(void) {
 /**
   Allows selecting an interrupt handler for IOCAF1 at application runtime
 */
-void SW2_SetInterruptHandler(void (*InterruptHandler)(void)) {
-    SW2_InterruptHandler = InterruptHandler;
+void DC_P1_SetInterruptHandler(void (* InterruptHandler)(void)){
+    DC_P1_InterruptHandler = InterruptHandler;
 }
 
 /**
   Default interrupt handler for IOCAF1
 */
-void SW2_DefaultInterruptHandler(void) {
-    // add your SW2 interrupt custom code
-    // or set custom function using SW2_SetInterruptHandler()
+void DC_P1_DefaultInterruptHandler(void){
+    // add your DC_P1 interrupt custom code
+    // or set custom function using DC_P1_SetInterruptHandler()
 }
 
 /**
-   SW3 Interrupt Service Routine
+   DC_P2 Interrupt Service Routine
 */
-void SW3_ISR(void) {
+void DC_P2_ISR(void) {
+
     // Add custom IOCAF2 code
-    UpdatePitchUP();
+
     // Call the interrupt handler for the callback registered at runtime
-    if (SW3_InterruptHandler) {
-        SW3_InterruptHandler();
+    if(DC_P2_InterruptHandler)
+    {
+        DC_P2_InterruptHandler();
     }
     IOCAFbits.IOCAF2 = 0;
 }
@@ -237,27 +255,29 @@ void SW3_ISR(void) {
 /**
   Allows selecting an interrupt handler for IOCAF2 at application runtime
 */
-void SW3_SetInterruptHandler(void (*InterruptHandler)(void)) {
-    SW3_InterruptHandler = InterruptHandler;
+void DC_P2_SetInterruptHandler(void (* InterruptHandler)(void)){
+    DC_P2_InterruptHandler = InterruptHandler;
 }
 
 /**
   Default interrupt handler for IOCAF2
 */
-void SW3_DefaultInterruptHandler(void) {
-    // add your SW3 interrupt custom code
-    // or set custom function using SW3_SetInterruptHandler()
+void DC_P2_DefaultInterruptHandler(void){
+    // add your DC_P2 interrupt custom code
+    // or set custom function using DC_P2_SetInterruptHandler()
 }
 
 /**
-   SW4 Interrupt Service Routine
+   DC_N1 Interrupt Service Routine
 */
-void SW4_ISR(void) {
+void DC_N1_ISR(void) {
+
     // Add custom IOCAF3 code
-    UpdatePitchDown();
+
     // Call the interrupt handler for the callback registered at runtime
-    if (SW4_InterruptHandler) {
-        SW4_InterruptHandler();
+    if(DC_N1_InterruptHandler)
+    {
+        DC_N1_InterruptHandler();
     }
     IOCAFbits.IOCAF3 = 0;
 }
@@ -265,27 +285,29 @@ void SW4_ISR(void) {
 /**
   Allows selecting an interrupt handler for IOCAF3 at application runtime
 */
-void SW4_SetInterruptHandler(void (*InterruptHandler)(void)) {
-    SW4_InterruptHandler = InterruptHandler;
+void DC_N1_SetInterruptHandler(void (* InterruptHandler)(void)){
+    DC_N1_InterruptHandler = InterruptHandler;
 }
 
 /**
   Default interrupt handler for IOCAF3
 */
-void SW4_DefaultInterruptHandler(void) {
-    // add your SW4 interrupt custom code
-    // or set custom function using SW4_SetInterruptHandler()
+void DC_N1_DefaultInterruptHandler(void){
+    // add your DC_N1 interrupt custom code
+    // or set custom function using DC_N1_SetInterruptHandler()
 }
 
 /**
-   SW5 Interrupt Service Routine
+   DC_N2 Interrupt Service Routine
 */
-void SW5_ISR(void) {
+void DC_N2_ISR(void) {
+
     // Add custom IOCAF4 code
-    UpdateYawUP();
+
     // Call the interrupt handler for the callback registered at runtime
-    if (SW5_InterruptHandler) {
-        SW5_InterruptHandler();
+    if(DC_N2_InterruptHandler)
+    {
+        DC_N2_InterruptHandler();
     }
     IOCAFbits.IOCAF4 = 0;
 }
@@ -293,72 +315,256 @@ void SW5_ISR(void) {
 /**
   Allows selecting an interrupt handler for IOCAF4 at application runtime
 */
-void SW5_SetInterruptHandler(void (*InterruptHandler)(void)) {
-    SW5_InterruptHandler = InterruptHandler;
+void DC_N2_SetInterruptHandler(void (* InterruptHandler)(void)){
+    DC_N2_InterruptHandler = InterruptHandler;
 }
 
 /**
   Default interrupt handler for IOCAF4
 */
-void SW5_DefaultInterruptHandler(void) {
-    // add your SW5 interrupt custom code
-    // or set custom function using SW5_SetInterruptHandler()
+void DC_N2_DefaultInterruptHandler(void){
+    // add your DC_N2 interrupt custom code
+    // or set custom function using DC_N2_SetInterruptHandler()
 }
 
 /**
-   SW6 Interrupt Service Routine
+   SvA_P1 Interrupt Service Routine
 */
-void SW6_ISR(void) {
-    // Add custom IOCAF5 code
-    UpdateYawDown();
-    // Call the interrupt handler for the callback registered at runtime
-    if (SW6_InterruptHandler) {
-        SW6_InterruptHandler();
-    }
-    IOCAFbits.IOCAF5 = 0;
-}
+void SvA_P1_ISR(void) {
 
-/**
-  Allows selecting an interrupt handler for IOCAF5 at application runtime
-*/
-void SW6_SetInterruptHandler(void (*InterruptHandler)(void)) {
-    SW6_InterruptHandler = InterruptHandler;
-}
-
-/**
-  Default interrupt handler for IOCAF5
-*/
-void SW6_DefaultInterruptHandler(void) {
-    // add your SW6 interrupt custom code
-    // or set custom function using SW6_SetInterruptHandler()
-}
-
-/**
-   SW7 Interrupt Service Routine
-*/
-void SW7_ISR(void) {
-    // Add custom IOCAF7 code
+    // Add custom IOCCF0 code
 
     // Call the interrupt handler for the callback registered at runtime
-    if (SW7_InterruptHandler) {
-        SW7_InterruptHandler();
+    if(SvA_P1_InterruptHandler)
+    {
+        SvA_P1_InterruptHandler();
     }
-    IOCAFbits.IOCAF7 = 0;
+    IOCCFbits.IOCCF0 = 0;
 }
 
 /**
-  Allows selecting an interrupt handler for IOCAF7 at application runtime
+  Allows selecting an interrupt handler for IOCCF0 at application runtime
 */
-void SW7_SetInterruptHandler(void (*InterruptHandler)(void)) {
-    SW7_InterruptHandler = InterruptHandler;
+void SvA_P1_SetInterruptHandler(void (* InterruptHandler)(void)){
+    SvA_P1_InterruptHandler = InterruptHandler;
 }
 
 /**
-  Default interrupt handler for IOCAF7
+  Default interrupt handler for IOCCF0
 */
-void SW7_DefaultInterruptHandler(void) {
-    // add your SW7 interrupt custom code
-    // or set custom function using SW7_SetInterruptHandler()
+void SvA_P1_DefaultInterruptHandler(void){
+    // add your SvA_P1 interrupt custom code
+    // or set custom function using SvA_P1_SetInterruptHandler()
+}
+
+/**
+   SvA_P2 Interrupt Service Routine
+*/
+void SvA_P2_ISR(void) {
+
+    // Add custom IOCCF1 code
+
+    // Call the interrupt handler for the callback registered at runtime
+    if(SvA_P2_InterruptHandler)
+    {
+        SvA_P2_InterruptHandler();
+    }
+    IOCCFbits.IOCCF1 = 0;
+}
+
+/**
+  Allows selecting an interrupt handler for IOCCF1 at application runtime
+*/
+void SvA_P2_SetInterruptHandler(void (* InterruptHandler)(void)){
+    SvA_P2_InterruptHandler = InterruptHandler;
+}
+
+/**
+  Default interrupt handler for IOCCF1
+*/
+void SvA_P2_DefaultInterruptHandler(void){
+    // add your SvA_P2 interrupt custom code
+    // or set custom function using SvA_P2_SetInterruptHandler()
+}
+   
+/**
+   SvA_N1 Interrupt Service Routine
+*/
+void SvA_N1_ISR(void) {
+
+    // Add custom IOCCF2 code
+
+    // Call the interrupt handler for the callback registered at runtime
+    if(SvA_N1_InterruptHandler)
+    {
+        SvA_N1_InterruptHandler();
+    }
+    IOCCFbits.IOCCF2 = 0;
+}
+
+/**
+  Allows selecting an interrupt handler for IOCCF2 at application runtime
+*/
+void SvA_N1_SetInterruptHandler(void (* InterruptHandler)(void)){
+    SvA_N1_InterruptHandler = InterruptHandler;
+}
+
+/**
+  Default interrupt handler for IOCCF2
+*/
+void SvA_N1_DefaultInterruptHandler(void){
+    // add your SvA_N1 interrupt custom code
+    // or set custom function using SvA_N1_SetInterruptHandler()
+}
+   
+/**
+   SvA_N2 Interrupt Service Routine
+*/
+void SvA_N2_ISR(void) {
+
+    // Add custom IOCCF3 code
+
+    // Call the interrupt handler for the callback registered at runtime
+    if(SvA_N2_InterruptHandler)
+    {
+        SvA_N2_InterruptHandler();
+    }
+    IOCCFbits.IOCCF3 = 0;
+}
+
+/**
+  Allows selecting an interrupt handler for IOCCF3 at application runtime
+*/
+void SvA_N2_SetInterruptHandler(void (* InterruptHandler)(void)){
+    SvA_N2_InterruptHandler = InterruptHandler;
+}
+
+/**
+  Default interrupt handler for IOCCF3
+*/
+void SvA_N2_DefaultInterruptHandler(void){
+    // add your SvA_N2 interrupt custom code
+    // or set custom function using SvA_N2_SetInterruptHandler()
+}
+   
+/**
+   SvB_N2 Interrupt Service Routine
+*/
+void SvB_N2_ISR(void) {
+
+    // Add custom IOCCF4 code
+
+    // Call the interrupt handler for the callback registered at runtime
+    if(SvB_N2_InterruptHandler)
+    {
+        SvB_N2_InterruptHandler();
+    }
+    IOCCFbits.IOCCF4 = 0;
+}
+
+/**
+  Allows selecting an interrupt handler for IOCCF4 at application runtime
+*/
+void SvB_N2_SetInterruptHandler(void (* InterruptHandler)(void)){
+    SvB_N2_InterruptHandler = InterruptHandler;
+}
+
+/**
+  Default interrupt handler for IOCCF4
+*/
+void SvB_N2_DefaultInterruptHandler(void){
+    // add your SvB_N2 interrupt custom code
+    // or set custom function using SvB_N2_SetInterruptHandler()
+}
+   
+/**
+   SvB_N1 Interrupt Service Routine
+*/
+void SvB_N1_ISR(void) {
+
+    // Add custom IOCCF5 code
+
+    // Call the interrupt handler for the callback registered at runtime
+    if(SvB_N1_InterruptHandler)
+    {
+        SvB_N1_InterruptHandler();
+    }
+    IOCCFbits.IOCCF5 = 0;
+}
+
+/**
+  Allows selecting an interrupt handler for IOCCF5 at application runtime
+*/
+void SvB_N1_SetInterruptHandler(void (* InterruptHandler)(void)){
+    SvB_N1_InterruptHandler = InterruptHandler;
+}
+
+/**
+  Default interrupt handler for IOCCF5
+*/
+void SvB_N1_DefaultInterruptHandler(void){
+    // add your SvB_N1 interrupt custom code
+    // or set custom function using SvB_N1_SetInterruptHandler()
+}
+   
+/**
+   SvB_P2 Interrupt Service Routine
+*/
+void SvB_P2_ISR(void) {
+
+    // Add custom IOCCF6 code
+
+    // Call the interrupt handler for the callback registered at runtime
+    if(SvB_P2_InterruptHandler)
+    {
+        SvB_P2_InterruptHandler();
+    }
+    IOCCFbits.IOCCF6 = 0;
+}
+
+/**
+  Allows selecting an interrupt handler for IOCCF6 at application runtime
+*/
+void SvB_P2_SetInterruptHandler(void (* InterruptHandler)(void)){
+    SvB_P2_InterruptHandler = InterruptHandler;
+}
+
+/**
+  Default interrupt handler for IOCCF6
+*/
+void SvB_P2_DefaultInterruptHandler(void){
+    // add your SvB_P2 interrupt custom code
+    // or set custom function using SvB_P2_SetInterruptHandler()
+}
+   
+/**
+   SvB_P1 Interrupt Service Routine
+*/
+void SvB_P1_ISR(void) {
+
+    // Add custom IOCCF7 code
+
+    // Call the interrupt handler for the callback registered at runtime
+    if(SvB_P1_InterruptHandler)
+    {
+        SvB_P1_InterruptHandler();
+    }
+    IOCCFbits.IOCCF7 = 0;
+}
+
+/**
+  Allows selecting an interrupt handler for IOCCF7 at application runtime
+*/
+void SvB_P1_SetInterruptHandler(void (* InterruptHandler)(void)){
+    SvB_P1_InterruptHandler = InterruptHandler;
+}
+
+/**
+  Default interrupt handler for IOCCF7
+*/
+void SvB_P1_DefaultInterruptHandler(void){
+    // add your SvB_P1 interrupt custom code
+    // or set custom function using SvB_P1_SetInterruptHandler()
 }
 /**
  End of File

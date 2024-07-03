@@ -6,6 +6,7 @@
  * @defgroup main MAIN
  *
  * @brief This is the generated driver implementation file for the MAIN driver.
+ *        Controller side.
  *
  * @version MAIN Driver Version 1.0.0
  */
